@@ -6,12 +6,12 @@
 #include <cstdint>
 
 namespace gn{
-
     class Noise{
     private:
         std::random_device rad;
         std::mt19937 mt;
         std::uniform_int_distribution<uint32_t> randomRange;
+        uint32_t seed;
         
         std::array<uint32_t, 256> per {{}};
         std::array<uint32_t, 512> p {{}};
@@ -43,8 +43,6 @@ namespace gn{
         Noise();
         Noise(const uint32_t _seed);
         ~Noise() = default;
-
-        uint32_t seed;
 
         //ノイズ
         double noise(double _x, double y_, double _z) noexcept;
