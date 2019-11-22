@@ -13,9 +13,10 @@ namespace gn{
         std::mt19937 mt;
         std::uniform_int_distribution<uint32_t> randomRange;
         
-        std::array<uint32_t, 256> per;
-        std::array<uint32_t, 512> p;
+        std::array<uint32_t, 256> per {{}};
+        std::array<uint32_t, 512> p {{}};
 
+        void setSeed(const uint32_t _seed) noexcept;
         void makeArray() noexcept;
 
         //フェード関数(6t^5 – 15t^4 + 10t^3)
@@ -40,7 +41,10 @@ namespace gn{
 
     public:
         Noise();
+        Noise(const uint32_t _seed);
         ~Noise() = default;
+
+        uint32_t seed;
 
         //ノイズ
         double noise(double _x, double y_, double _z) noexcept;

@@ -10,6 +10,19 @@ namespace gn{
         makeArray();
     }
 
+    Noise::Noise(const uint32_t _seed)
+        : rad()
+        , mt(_seed)
+        , randomRange(0, 255)
+    {
+        setSeed(_seed);
+        makeArray();
+    }
+
+    void setSeed(const uint32_t _seed) noexcept{
+        this->seed = _seed;
+    }
+
     void Noise::makeArray() noexcept{
         for(int i = 0; i < 512; ++i){
             p[i] = randomRange(mt);
@@ -80,7 +93,7 @@ namespace gn{
         double maxValue { 0 };
 
         for(int i = 0; i < _octaves; ++i){
-            total += noise( _x * frequncy, _y * frequncy, _y * frequncy );
+            total += noise( _x * frequncy, _y * frequncy, _z * frequncy );
             maxValue += amplitude;
             amlitude *= presistence;
             frequency *= 2;
