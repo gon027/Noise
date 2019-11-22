@@ -19,7 +19,7 @@ namespace gn{
         makeArray();
     }
 
-    void setSeed(const uint32_t _seed) noexcept{
+    void Noise::setSeed(const uint32_t _seed) noexcept{
         this->seed = _seed;
     }
 
@@ -93,9 +93,9 @@ namespace gn{
         double maxValue { 0 };
 
         for(int i = 0; i < _octaves; ++i){
-            total += noise( _x * frequncy, _y * frequncy, _z * frequncy );
+            total += noise( _x * frequency, _y * frequency, _z * frequency);
             maxValue += amplitude;
-            amlitude *= presistence;
+			amplitude *= _persistence;
             frequency *= 2;
         }
 
