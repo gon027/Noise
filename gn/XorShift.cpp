@@ -48,7 +48,6 @@ namespace gn {
     }
 }
 
-
 /*
 #include <iostream>
 #include <cstdint>
@@ -85,5 +84,4 @@ int main(){
     auto msec = chrono::duration_cast<std::chrono::milliseconds>(diff).count();
     cout << msec << "ミリ秒" << endl;
 }
-
 */

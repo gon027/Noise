@@ -34,14 +34,14 @@ namespace gn{
 
         /*
         * [ _min, _max ]の範囲の乱数をint型で取得
-        * _min : 範囲の最初うち
+        * _min : 範囲の最小値
         * _max : 範囲の最大値
         */
         int getRandomRangeInt(int _min, int _max);
 
         /*
         * [ _min, _max ]の範囲の乱数をfloat型で取得
-        * _min : 範囲の最初うち
+        * _min : 範囲の最小値
         * _max : 範囲の最大値
         */
         float getRandomRangeFloat(float _min, float _max);
