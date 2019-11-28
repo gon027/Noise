@@ -6,26 +6,19 @@
 #include <cstdint>
 #include "XorShift.h"
 
-#include <iostream>
-
 namespace gn{
     class Noise{
     private:
-        // std::random_device rad;
-        // std::mt19937 mt;
-        // std::uniform_int_distribution<uint32_t> randomRange;
-
         gn::XorShift xorShift;
 
         uint32_t seed;
         
-        std::array<int, 256> per {{}};
         std::array<int, 512> p {{}};
 
-        void setSeed(const uint32_t _seed) noexcept;
+       
         void makeArray() noexcept;
 
-        //フェード関数(6t^5 – 15t^4 + 10t^3)
+        //フェード関数(6t^5 ? 15t^4 + 10t^3)
         inline double fade(double t) noexcept{
             return t * t * t * (t * (t * 6 - 15) + 10);
         }
@@ -49,6 +42,8 @@ namespace gn{
         Noise();
         Noise(const uint32_t _seed);
         ~Noise() = default;
+
+		void setSeed(const uint32_t _seed) noexcept;
 
         /*
         * [ -0.5, 0.5]の範囲でノイズを生成する

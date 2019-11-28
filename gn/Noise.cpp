@@ -3,32 +3,35 @@
 namespace gn{
     
     Noise::Noise()
-        // : rad()
-        // , mt(rad())
-        // , randomRange(0, 255)
         : xorShift()
     {
-        makeArray();
+        setSeed(1'623'135'984);
     }
 
     Noise::Noise(const uint32_t _seed)
-        // : rad()
-        // , mt(_seed)
-        // , randomRange(0, 255)
         : xorShift( _seed )
     {
         setSeed(_seed);
-        makeArray();
     }
 
     void Noise::setSeed(const uint32_t _seed) noexcept{
         this->seed = _seed;
+		xorShift.setSeedValue(_seed);
+		makeArray();
     }
 
     void Noise::makeArray() noexcept{
-        for(int i = 0; i < 512; ++i){
-            p[i] = /*randomRange(mt);*/ xorShift.getRandomRangeInt(0, 255);
-        }
+        /*for(int i = 0; i < 512; ++i){
+            p[i] = xorShift.getRandomRangeInt(0, 255);
+        }*/
+
+		for(int i = 0; i < 256; ++i){
+			p[i] = xorShift.getRandomRangeIng(0, 256);
+		}
+
+		for(int i = 0; i < 256; ++i){
+			p[i + 256] = p[i & 255];
+		}
     }
 
     double Noise::noise(double _x, double _y, double _z) noexcept{
@@ -104,12 +107,3 @@ namespace gn{
         return total / maxValue;
     }
 }
-
-// #include <iostream>
-// using namespace std;
-
-// int main(){
-//     gn::Noise n;
-
-//     cout << n.noise(0.1, 0.43, 0.1) << endl;
-// }
