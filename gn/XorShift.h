@@ -1,9 +1,12 @@
+#ifndef XORSHIFT_H
+#define XORSHIFT_H
+
 #include <cstdint>
 #include <array>
 
-using uint = std::uint_fast32_t;
-
 namespace gn{
+    using uint = std::uint_fast32_t;
+
     class XorShift{
     private:
         uint seed;
@@ -20,6 +23,9 @@ namespace gn{
         */
         XorShift(uint _seed);
 
+        /*
+        * 
+        */
         ~XorShift() = default;
 
         /*
@@ -47,3 +53,5 @@ namespace gn{
         float getRandomRangeFloat(float _min, float _max);
     };
 }
+
+#endif // XORSHIFT_H
