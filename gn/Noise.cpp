@@ -21,17 +21,26 @@ namespace gn{
     }
 
     void Noise::makeArray() noexcept{
-        /*for(int i = 0; i < 512; ++i){
+        for(int i = 0; i < 512; ++i){
             p[i] = xorShift.getRandomRangeInt(0, 255);
-        }*/
+        }
+    }
 
-		for(int i = 0; i < 256; ++i){
-			p[i] = xorShift.getRandomRangeIng(0, 256);
-		}
+    double Noise::fade(double t) noexcept{
+        return t * t * t * (t * (t * 6 - 15) + 10);
+    }
 
-		for(int i = 0; i < 256; ++i){
-			p[i + 256] = p[i & 255];
-		}
+    double Noise::lerp(double t, double a, double b) noexcept{
+        return a + t * (b - a);
+    }
+
+    double Noise::grad(int hash, double x, double y, double z) noexcept{
+        // 15 == 0b1111
+        int h = hash & 15;
+        double u = h < 8 ? x : y;
+        double v = h < 4 ? y : (h == 12 || h == 14) ? x : z;
+
+        return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
     }
 
     double Noise::noise(double _x, double _y, double _z) noexcept{
