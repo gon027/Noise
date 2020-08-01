@@ -1,4 +1,5 @@
 #include "Noise.h"
+#include <algorithm>
 
 namespace gn{
 
@@ -6,12 +7,18 @@ namespace gn{
         : seed()
         , engine(seed())
     {
-
+        makeArray();
     }
 
     void Noise::makeArray() noexcept{
-        for(int i = 0; i < 512; ++i){
-            
+        for(int i = 0; i < 256; ++i){
+            p[i] = i;
+        }
+
+        std::shuffle(p.begin(), p.begin() + 256, engine);
+
+        for (int i = 0; i < 256; ++i){
+            p[256 + i] = p[i];
         }
     }
 
@@ -30,6 +37,15 @@ namespace gn{
         double v = h < 4 ? y : (h == 12 || h == 14) ? x : z;
 
         return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
+    }
+
+    double clamp(double _v, double _s, double _g)
+    {
+        if (_v <= _s)
+            return _s;
+        if (_v >= _g)
+            return _g;
+        return _v;
     }
 
     double Noise::noise(double _x, double _y, double _z) noexcept{
@@ -86,7 +102,7 @@ namespace gn{
         double y1 { lerp( v, x1, x2 ) };
         double y2 { lerp( v, x3, x4 ) };
 
-        return lerp( w, y1, y2 );
+        return lerp( w, y1, y2 ) * 0.5 + 0.5;
     }
 
     double Noise::octaveNoise(double _x, double _y, double _z, int _octaves = 5, double _persistence = 0.5L){

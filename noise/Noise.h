@@ -21,7 +21,7 @@ namespace gn{
         * オクターブノイズを生成する
         */
         double octaveNoise(double _x, double _y, double _z, int _octaves, double _persistence);
-
+        
     private:
         std::random_device seed;
         std::mt19937 engine;
