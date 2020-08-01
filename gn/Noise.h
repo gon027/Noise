@@ -4,17 +4,13 @@
 #include <array>
 #include <random>
 #include <cstdint>
-#include "XorShift.h"
 
 namespace gn{
 
     class Noise{
     public:
         Noise();
-        Noise(const uint32_t _seed);
         ~Noise() = default;
-
-        void setSeed(const uint32_t _seed) noexcept;
 
         /*
         * [ -0.5, 0.5]の範囲でノイズを生成する
@@ -27,8 +23,9 @@ namespace gn{
         double octaveNoise(double _x, double _y, double _z, int _octaves, double _persistence);
 
     private:
-        gn::XorShift xorShift;
-        uint32_t seed;
+        std::random_device seed;
+        std::mt19937 engine;
+
         std::array<int, 512> p {{}};
 
         void makeArray() noexcept;

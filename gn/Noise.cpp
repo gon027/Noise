@@ -1,28 +1,17 @@
 #include "Noise.h"
 
 namespace gn{
-    
+
     Noise::Noise()
-        : xorShift()
+        : seed()
+        , engine(seed())
     {
-        setSeed(1'623'135'984);
-    }
 
-    Noise::Noise(const uint32_t _seed)
-        : xorShift( _seed )
-    {
-        setSeed(_seed);
-    }
-
-    void Noise::setSeed(const uint32_t _seed) noexcept{
-        this->seed = _seed;
-		xorShift.setSeedValue(_seed);
-		makeArray();
     }
 
     void Noise::makeArray() noexcept{
         for(int i = 0; i < 512; ++i){
-            p[i] = xorShift.getRandomRangeInt(0, 255);
+            
         }
     }
 
